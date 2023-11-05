@@ -1,6 +1,8 @@
 import random
 import time
 import os
+import tqdm
+import prettytable
 
 
 class PasswordGenerator:
@@ -30,7 +32,6 @@ class PasswordGenerator:
         while True:
             if self.length.strip().isdigit():
                 if 5 < int(self.length) < 13:
-                    print('\nУспешно!')
                     break
                 else:
                     print('Ошибка!\nПароль должен быть не больше 12  и не меньше 6 символов \nПопробуйте заново')
@@ -55,12 +56,8 @@ class PasswordGenerator:
                 self.gen.append(random_lettter.upper())
         self.passwd = ''.join(self.gen)
         print('\nПодождите, ваш пароль генерируется...')
-        for i in range(0, 91, 10):
-            time.sleep(0.2)
-            print(i, '%' + '...')
-        for i in range(91, 100):
+        for i in tqdm.tqdm(range(1, 101)):
             time.sleep(0.1)
-            print(i, '%' + '...')
         print(f'Ваш пароль успешно сгенерирован\nСгенерированный пароль:{self.passwd}')
         savepsswd = input('Хотите сохранить пароль(да/нет):')
         while True:
@@ -74,7 +71,7 @@ class PasswordGenerator:
                 with open('generated saved passwords.txt', 'r') as file:
                     old_password = file.readlines()
                 f.write(
-                    f'{len(old_password) + 1}. {self.saved_passwords[data_passwd]} (Дата создания : {self.dataCreationTime[data_passwd]})\n')
+                    f'{len(old_password) + 1}. {self.saved_passwords[data_passwd]} . (Дата создания : {self.dataCreationTime[data_passwd]})\n')
                 f.close()
                 self.commands()
             elif savepsswd.strip() == 'нет':
@@ -96,8 +93,14 @@ class PasswordGenerator:
         if is_empty_file(file_name):
             print('Password not found!\nДля создания новых паролей используйте команду "1.Random password generation"')
         else:
+            table = prettytable.PrettyTable()
+            table.field_names = ['№', 'Password', "Data of creation"]
+            table._min_width = {"№": 10, "Password": 20, "Data of creation": 30}
             for i in f:
-                print(i)
+                x = i.split('.')
+                x = list([j.strip() for j in x])
+                table.add_row(x)
+            print(table)
         f.close()
         self.commands()
 
