@@ -95,7 +95,6 @@ class PasswordGenerator:
         else:
             table = prettytable.PrettyTable()
             table.field_names = ['№', 'Password', "Data of creation"]
-            table._min_width = {"№": 10, "Password": 20, "Data of creation": 30}
             for i in f:
                 x = i.split('.')
                 x = list([j.strip() for j in x])
