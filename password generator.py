@@ -57,7 +57,12 @@ class PasswordGenerator:
         self.passwd = ''.join(self.gen)
         print('\nПодождите, ваш пароль генерируется...')
         for i in tqdm.tqdm(range(1, 101)):
-            time.sleep(0.1)
+            if 6 <= int(self.length) < 8:
+                time.sleep(0.05)
+            elif 8 <= int(self.length) < 10:
+                time.sleep(0.1)
+            else:
+                time.sleep(0.2)
         print(f'Ваш пароль успешно сгенерирован\nСгенерированный пароль:{self.passwd}')
         savepsswd = input('Хотите сохранить пароль(да/нет):')
         while True:
