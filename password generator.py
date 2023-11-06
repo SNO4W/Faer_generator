@@ -12,6 +12,7 @@ class PasswordGenerator:
         self.alphabet = [chr(i) for i in range(97, 123)]
         self.saved_passwords = []
         self.dataCreationTime = []
+        self.commands()
 
     def commands(self):  # функция команд
         while True:
@@ -71,7 +72,9 @@ class PasswordGenerator:
                 self.data_create = time.asctime()
                 self.dataCreationTime.append(self.data_create)
                 self.saved_passwords.append(self.passwd)
-                f = open('generated saved passwords.txt', 'a')
+                f = open(
+                    '/Users/user/Desktop/programming/python/my console projects/password generator/generated saved passwords.txt',
+                    'a')
                 data_passwd = self.saved_passwords.index(self.passwd)
                 with open('generated saved passwords.txt', 'r') as file:
                     old_password = file.readlines()
@@ -88,13 +91,15 @@ class PasswordGenerator:
 
     def saved_passwd(self):  # сохраненные пароли
         print('Ваши сохраненные пароли:\n')
-        f = open('generated saved passwords.txt', 'r')
+        f = open(
+            '/Users/user/Desktop/programming/python/my console projects/password generator/generated saved passwords.txt',
+            'r')
 
         def is_empty_file(file_name):  # проверка пуст ли файл.txt
             file_info = os.stat(file_name)
             return file_info.st_size == 0
 
-        file_name = 'generated saved passwords.txt'
+        file_name = '/Users/user/Desktop/programming/python/my console projects/password generator/generated saved passwords.txt'
         if is_empty_file(file_name):
             print('Password not found!\nДля создания новых паролей используйте команду "1.Random password generation"')
         else:
@@ -109,5 +114,5 @@ class PasswordGenerator:
         self.commands()
 
 
-passwd_gen = PasswordGenerator()
-passwd_gen.commands()
+if __name__ == '__main__':
+    passwd_gen = PasswordGenerator()
