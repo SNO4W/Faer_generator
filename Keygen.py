@@ -66,11 +66,11 @@ class KeyGenerator:
         while True:
             if save_key.strip() == 'да':
                 print('Пароль успешно сохранен!')
-                with open('saved activion keys windows.txt', 'r') as file:
+                with open('resources/saved activion keys windows.txt', 'r') as file:
                     strings = file.readlines()
                 n = len(strings)
-                f = open('saved activion keys windows.txt', 'a')
-                if empty_file('saved activion keys windows.txt'):
+                f = open('resources/saved activion keys windows.txt', 'a')
+                if empty_file('resources/saved activion keys windows.txt'):
                     f.write('Ключи активации Windows OS:\n')
                     n += 1
                 for i in self.key_windows:
@@ -90,9 +90,9 @@ class KeyGenerator:
     def saved_key(self):
         print('Ваши лицензионные ключи:\n')
         f = open(
-            'saved activion keys windows.txt',
+            'resources/saved activion keys windows.txt',
             'r')
-        file = 'saved activion keys windows.txt'
+        file = 'resources/saved activion keys windows.txt'
         if empty_file(file):
             print(
                 'Activioin keys not found!\nДля создания новых лицензионных ключей используйте команду "1.Сгенерировать лицензионные ключи"')

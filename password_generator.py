@@ -72,9 +72,9 @@ class PasswordGenerator:
                 self.data_create = time.asctime()
                 self.dataCreationTime.append(self.data_create)
                 self.saved_passwords.append(self.passwd)
-                f = open('generated saved passwords.txt', 'a')
+                f = open('resources/generated saved passwords.txt', 'a')
                 data_passwd = self.saved_passwords.index(self.passwd)
-                with open('generated saved passwords.txt', 'r') as file:
+                with open('resources/generated saved passwords.txt', 'r') as file:
                     old_password = file.readlines()
                 f.write(
                     f'{len(old_password) + 1}. {self.saved_passwords[data_passwd]} . (Дата создания : {self.dataCreationTime[data_passwd]})\n')
@@ -90,14 +90,14 @@ class PasswordGenerator:
     def saved_passwd(self):  # сохраненные пароли
         print('Ваши сохраненные пароли:\n')
         f = open(
-            'generated saved passwords.txt',
+            'resources/generated saved passwords.txt',
             'r')
 
         def is_empty_file(file_name):  # проверка пуст ли файл.txt
             file_info = os.stat(file_name)
             return file_info.st_size == 0
 
-        file_name = 'generated saved passwords.txt'
+        file_name = 'resources/generated saved passwords.txt'
         if is_empty_file(file_name):
             print(
                 'Password not found!\nДля создания новых паролей используйте команду "1.Сгенерировать рандомный пароль"')
