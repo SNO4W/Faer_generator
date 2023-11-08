@@ -1,4 +1,4 @@
-from password_generator import *
+import password_generator
 from Keygen import *
 
 
@@ -11,7 +11,7 @@ class Generator:
             self.menu_choice = input('Меню\n\t1.Генератор паролей\n\t2.Генератор ключей\n\t3.Выйти\n>>')
             match self.menu_choice.strip().lower():
                 case '1':
-                    PasswordGenerator()
+                    password_generator.PasswordGenerator()
                 case '2':
                     KeyGenerator()
                 case '3':
