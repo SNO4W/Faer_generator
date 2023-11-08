@@ -5,25 +5,40 @@ import tqdm
 import prettytable
 
 
-class PasswordGenerator:
-    print('Генератор паролей')
-
+class Generator:
     def __init__(self):
         self.alphabet = [chr(i) for i in range(97, 123)]
         self.saved_passwords = []
         self.dataCreationTime = []
-        self.commands()
+        self.key_assembly_windows = []
+        self.menu()
 
-    def commands(self):  # функция команд
+    def menu(self):
+        while True:
+            self.menu_choice = input('Меню\n\t1.Генератор паролей\n\t2.Генератор ключей\n\t3.Выйти\n>>')
+            match self.menu_choice.strip().lower():
+                case '1':
+                    PasswordGenerator().commands_passwd()
+                case '2':
+                    KeyGenerator()
+                case '3':
+                    exit()
+                case _:
+                    print(f'Ошибка\nКоманды {self.menu_choice} не существует\nПопробуйте еще раз')
+                    continue
+
+
+class PasswordGenerator(Generator):
+    print('Генератор паролей')
+
+    def commands_passwd(self):  # функция команд
         while True:
             self.cmd = input(
-                '\nВыберите № команды для продолжения:\n\t1.Random password generation\n\t2.Show saved passwords\n\t3.Exit\n>>')
+                '\nВыберите № команды для продолжения:\n\t1.Сгенерировать рандомный пароль\n\t2.Показать сохраненные пароли\n>>')
             if self.cmd.strip() == '1':
                 self.attribute()
             elif self.cmd.strip() == '2':
                 self.saved_passwd()
-            elif self.cmd.strip() == '3':
-                exit()
             else:
                 print(f'Ошибка\nКоманды {self.cmd} не существует\nПопробуйте еще раз')
                 continue
@@ -46,15 +61,15 @@ class PasswordGenerator:
     def passwd_gen(self):  # функция генерирования пароля
         self.gen = []
         for i in range(0, int(self.length)):
-            random_lettter = random.choice(self.alphabet)
-            random_num = random.randint(0, 9)
+            self.random_lettter = random.choice(self.alphabet)
+            self.random_num = random.randint(0, 9)
             x = random.randint(0, 4)
             if x == 0 or x == 1:
-                self.gen.append(str(random_num))
+                self.gen.append(str(self.random_num))
             elif x == 2 or x == 3:
-                self.gen.append(random_lettter)
+                self.gen.append(self.random_lettter)
             else:
-                self.gen.append(random_lettter.upper())
+                self.gen.append(self.random_lettter.upper())
         self.passwd = ''.join(self.gen)
         print('\nПодождите, ваш пароль генерируется...')
         for i in tqdm.tqdm(range(1, 101)):
@@ -73,7 +88,7 @@ class PasswordGenerator:
                 self.dataCreationTime.append(self.data_create)
                 self.saved_passwords.append(self.passwd)
                 f = open(
-                    '/Users/user/Desktop/programming/python/my console projects/password generator/generated saved passwords.txt',
+                    '/my console projects/password generator + activion key/generated saved passwords.txt',
                     'a')
                 data_passwd = self.saved_passwords.index(self.passwd)
                 with open('generated saved passwords.txt', 'r') as file:
@@ -81,10 +96,10 @@ class PasswordGenerator:
                 f.write(
                     f'{len(old_password) + 1}. {self.saved_passwords[data_passwd]} . (Дата создания : {self.dataCreationTime[data_passwd]})\n')
                 f.close()
-                self.commands()
+                self.commands_passwd()
             elif savepsswd.strip() == 'нет':
                 print('Пароль не был сохранен')
-                self.commands()
+                self.commands_passwd()
             else:
                 print('Ошибка\nДля продолжения используйте только да/нет\nПопробуйте заново')
                 savepsswd = input('Хотите сохранить пароль(да/нет):')
@@ -92,16 +107,17 @@ class PasswordGenerator:
     def saved_passwd(self):  # сохраненные пароли
         print('Ваши сохраненные пароли:\n')
         f = open(
-            '/Users/user/Desktop/programming/python/my console projects/password generator/generated saved passwords.txt',
+            '/my console projects/password generator + activion key/generated saved passwords.txt',
             'r')
 
         def is_empty_file(file_name):  # проверка пуст ли файл.txt
             file_info = os.stat(file_name)
             return file_info.st_size == 0
 
-        file_name = '/Users/user/Desktop/programming/python/my console projects/password generator/generated saved passwords.txt'
+        file_name = '/my console projects/password generator + activion key/generated saved passwords.txt'
         if is_empty_file(file_name):
-            print('Password not found!\nДля создания новых паролей используйте команду "1.Random password generation"')
+            print(
+                'Password not found!\nДля создания новых паролей используйте команду "1.Сгенерировать рандомный пароль"')
         else:
             table = prettytable.PrettyTable()
             table.field_names = ['№', 'Password', "Data of creation"]
@@ -111,8 +127,43 @@ class PasswordGenerator:
                 table.add_row(x)
             print(table)
         f.close()
-        self.commands()
+        self.commands_passwd()
+
+
+class KeyGenerator(Generator):
+    print('Генератор ключей')
+
+    def commands_key(self):
+        while True:
+            self.cmnd = input(
+                '\nВыберите № команды для продолжения:\n\t1.Сгенерировать лицензионный ключ\n\t2.Показать сохранные ключи\n>>')
+            if self.cmnd.strip() == '1':
+                self.selection()
+            elif self.cmnd.strip() == '2':
+                self.saved_key()
+            else:
+                print(f'Ошибка\nКоманды {self.cmnd} не существует\nПопробуйте еще раз')
+                continue
+
+    def selection(self):
+        while True:
+            self.choice_key = input(
+                '\nВыберите № ключа которого вы хотели бы сгенерировать(для выхода в меню введите exit):\n\t1.Windows OS')
+            match self.choice_key.strip().lower():
+                case '1':
+                    self.keygen_windows()
+                case 'exit':
+                    pass
+                case _:
+                    print(f'Ошибка\nКоманды {self.choice_key} не существует\nПопробуйте еще раз')
+                    continue
+
+    def keygen_windows(self):
+        pass
+
+    def saved_key(self):
+        pass
 
 
 if __name__ == '__main__':
-    passwd_gen = PasswordGenerator()
+    gen = Generator()
