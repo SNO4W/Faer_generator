@@ -3,7 +3,7 @@ import time
 import os
 import tqdm
 import prettytable
-from colorama import Fore, Back, Style
+from colorama import Fore
 
 
 def empty_file(filename):  # проверка пуст ли файл.txt
@@ -123,6 +123,9 @@ class KeyGenerator:
     def __init__(self):
         self.alphabet = [chr(i) for i in range(97, 123)]
         self.key_windows = []
+        self.keys_photoshop = []
+        self.M_W = 'Microsoft Windows'
+        self.A_P = 'Adobe Photoshop'
         self.commands()
 
     def commands(self):
@@ -132,7 +135,7 @@ class KeyGenerator:
             if self.cmd.strip() == '1':
                 self.selection()
             elif self.cmd.strip() == '2':
-                self.saved_key_windows()
+                self.saved_key()
             elif self.cmd.strip() == '3':
                 Generator()
             else:
@@ -142,10 +145,12 @@ class KeyGenerator:
     def selection(self):
         while True:
             self.choice_key = input(Fore.MAGENTA +
-                                    '\nВыберите № ключа которого вы хотели бы сгенерировать(для выхода в меню введите exit):\n\t1.Windows OS\n>>')
+                                    f'\nВыберите № ключа которого вы хотели бы сгенерировать(для выхода в меню введите exit):\n\t1.{self.M_W}\n\t2.{self.A_P}\n>>')
             match self.choice_key.strip().lower():
                 case '1':
                     self.keygen_windows()
+                case '2':
+                    self.keygen_photoshop()
                 case 'exit':
                     self.commands()
                 case _:
@@ -176,21 +181,21 @@ class KeyGenerator:
         print(Fore.GREEN + 'Ключи активации успешно сгенерированы')
         save_key = input(Fore.MAGENTA + 'Хотите сохранить сгенерированные ключи(да/нет):')
         while True:
-            if save_key.strip() == 'да':
+            if save_key.strip().lower() == 'да':
                 print(Fore.GREEN + 'Пароль успешно сохранен!')
                 with open('saved activion keys windows.txt', 'r') as file:
                     strings = file.readlines()
                 n = len(strings)
                 f = open('saved activion keys windows.txt', 'a')
                 if empty_file('saved activion keys windows.txt'):
-                    f.write(Fore.MAGENTA + 'Ключи активации Windows OS:\n')
+                    f.write(Fore.MAGENTA + f'Ключи активации {self.M_W}:\n')
                     n += 1
                 for i in self.key_windows:
                     f.write(f'{n}. {i}\n')
                     n += 1
                 f.close()
                 self.commands()
-            elif save_key.strip() == 'нет':
+            elif save_key.strip().lower() == 'нет':
                 print(Fore.YELLOW + 'Лицензионные ключи не были сохранены')
                 self.commands()
             else:
@@ -199,8 +204,85 @@ class KeyGenerator:
                 continue
         self.commands()
 
-    def saved_key_windows(self):
-        print(Fore.MAGENTA + 'Ваши лицензионные ключи:\n')
+    def keygen_photoshop(self):
+        self.keys_photoshop.clear()
+        for i in range(5):
+            self.key_assembly_photoshop_completely = []
+            self.key_assembly_photoshop_parts = []
+            for j in range(6):
+                for k in range(4):
+                    self.random_num = random.randint(0, 9)
+                    self.key_assembly_photoshop_parts.append(str(self.random_num))
+                self.key_assembly_photoshop_completely.append(''.join(self.key_assembly_photoshop_parts) + '-')
+                self.key_assembly_photoshop_parts = []
+            self.keys_photoshop.append((''.join(self.key_assembly_photoshop_completely))[0:-1])
+        print(Fore.MAGENTA + '\nПодождите, лицензионные ключи генерируются...')
+        for i in tqdm.tqdm(range(1, 101)):
+            time.sleep(0.1)
+        print(Fore.GREEN + 'Ключи активации успешно сгенерированы')
+        save_key = input(Fore.MAGENTA + 'Хотите сохранить сгенерированные ключи(да/нет):')
+        while True:
+            if save_key.strip().lower() == 'да':
+                print(Fore.GREEN + 'Пароль успешно сохранен!')
+                with open('saved_keys_photoshop.txt', 'r') as file:
+                    strings = file.readlines()
+                n = len(strings)
+                f = open('saved_keys_photoshop.txt', 'a')
+                if empty_file('saved_keys_photoshop.txt'):
+                    f.write(Fore.MAGENTA + f'Ключи активации {self.A_P}:\n')
+                    n += 1
+                for i in self.keys_photoshop:
+                    f.write(f'{n}. {i}\n')
+                    n += 1
+                f.close()
+                self.commands()
+            elif save_key.strip().lower() == 'нет':
+                print(Fore.YELLOW + 'Лицензионные ключи не были сохранены')
+                self.commands()
+            else:
+                print(Fore.RED + 'Ошибка\nДля продолжения используйте только да/нет\nПопробуйте заново')
+                save_key = input(Fore.MAGENTA + 'Хотите сохранить сгенерированные ключи(да/нет):')
+                continue
+        self.commands()
+
+    def saved_key(self):
+        while True:
+            self.choice_saved_key = input(Fore.MAGENTA +
+                                          f'Выберите № ключей для просмотра(для выхода в меню введите "exit"):\n\t1.{self.M_W}\n\t2.{self.A_P}\n>>')
+            match self.choice_saved_key.strip().lower():
+                case '1':
+                    self.saved_keys_windows()
+                case '2':
+                    self.saved_keys_photosop()
+                case 'exit':
+                    self.commands()
+                case _:
+                    print(Fore.RED + f'Ошибка\nКоманды {self.choice_saved_key} не существует\nПопробуйте еще раз')
+                    continue
+
+    def saved_keys_photosop(self):
+        print(Fore.MAGENTA + 'Ваши лицензионные ключи Photoshop:\n')
+        f = open(
+            'saved_keys_photoshop.txt',
+            'r')
+        file = 'saved_keys_photoshop.txt'
+        if empty_file(file):
+            print(Fore.YELLOW +
+                  'Activioin keys not found!\nДля создания новых лицензионных ключей используйте команду "1.Сгенерировать лицензионные ключи"')
+        else:
+            table = prettytable.PrettyTable()
+            table.field_names = ['№', 'Activion keys']
+            for i in f:
+                if not 'Ключи' in i:
+                    x = i.split('.')
+                    x = list([j.strip() for j in x])
+                    table.add_row(x)
+            print(table)
+        f.close()
+        self.commands()
+
+    def saved_keys_windows(self):
+        print(Fore.MAGENTA + 'Ваши лицензионные ключи Windows:\n')
         f = open(
             'saved activion keys windows.txt',
             'r')
