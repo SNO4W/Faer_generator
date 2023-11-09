@@ -318,7 +318,7 @@ class Generator:
                 case '3':
                     exit()
                 case _:
-                    print(Fore.RED + ''f'Ошибка\nКоманды {self.menu_choice} не существует\nПопробуйте еще раз')
+                    print(Fore.RED + f'Ошибка\nКоманды {self.menu_choice} не существует\nПопробуйте еще раз')
                     continue
 
 
