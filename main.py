@@ -182,7 +182,7 @@ class KeyGenerator:
         save_key = input(Fore.MAGENTA + 'Хотите сохранить сгенерированные ключи(да/нет):')
         while True:
             if save_key.strip().lower() == 'да':
-                print(Fore.GREEN + 'Пароль успешно сохранен!')
+                print(Fore.GREEN + 'Сгенерированные ключи успешно сохранены!')
                 with open('saved activion keys windows.txt', 'r') as file:
                     strings = file.readlines()
                 n = len(strings)
@@ -223,7 +223,7 @@ class KeyGenerator:
         save_key = input(Fore.MAGENTA + 'Хотите сохранить сгенерированные ключи(да/нет):')
         while True:
             if save_key.strip().lower() == 'да':
-                print(Fore.GREEN + 'Пароль успешно сохранен!')
+                print(Fore.GREEN + 'Ключи активации успешно сохранены!')
                 with open('saved_keys_photoshop.txt', 'r') as file:
                     strings = file.readlines()
                 n = len(strings)
