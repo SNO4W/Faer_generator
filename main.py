@@ -4,6 +4,7 @@ import os
 import tqdm
 import prettytable
 from colorama import Fore
+import pyfiglet
 
 
 def empty_file(filename):  # проверка пуст ли файл.txt
@@ -12,7 +13,6 @@ def empty_file(filename):  # проверка пуст ли файл.txt
 
 
 class PasswordGenerator:
-
     def __init__(self):
         self.alphabet = [chr(i) for i in range(97, 123)]
         self.saved_passwords = []
@@ -282,6 +282,8 @@ class Generator:
 
     def menu(self):
         while True:
+            preview_text = pyfiglet.Figlet(font='slant')
+            print(preview_text.renderText('GENERATOR by Faer'))
             self.menu_choice = input(Fore.MAGENTA + 'Меню\n\t1.Генератор паролей\n\t2.Генератор ключей\n\t3.Выйти\n>>')
             match self.menu_choice.strip().lower():
                 case '1':
