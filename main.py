@@ -114,7 +114,6 @@ class PasswordGenerator:
 
 
 class KeyGenerator:
-
     def __init__(self):
         self.alphabet = [chr(i) for i in range(97, 123)]
         self.key_windows = []
@@ -284,7 +283,8 @@ class Generator:
         while True:
             preview_text = pyfiglet.Figlet(font='slant')
             print(preview_text.renderText('GENERATOR by Faer'))
-            self.menu_choice = input(Fore.MAGENTA + 'Меню\n\t1.Генератор паролей\n\t2.Генератор ключей\n\t3.Выйти\n>>')
+            print(Fore.MAGENTA + '   ==============\n        Меню\n   ==============')
+            self.menu_choice = input(Fore.MAGENTA + '1.Генератор паролей\n2.Генератор ключей\n3.Выйти\n>>')
             match self.menu_choice.strip().lower():
                 case '1':
                     PasswordGenerator()
