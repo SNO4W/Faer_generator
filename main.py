@@ -246,43 +246,21 @@ class KeyGenerator:
                                           f'Выберите № ключей для просмотра(для выхода в меню введите "exit"):\n\t1.{self.M_W}\n\t2.{self.A_P}\n>>')
             match self.choice_saved_key.strip().lower():
                 case '1':
-                    self.saved_keys_windows()
+                    self.saved_keys('saved activion keys windows.txt', self.M_W)
                 case '2':
-                    self.saved_keys_photosop()
+                    self.saved_keys('saved_keys_photoshop.txt', self.A_P)
                 case 'exit':
                     self.commands()
                 case _:
                     print(Fore.RED + f'Ошибка\nКоманды {self.choice_saved_key} не существует\nПопробуйте еще раз')
                     continue
 
-    def saved_keys_photosop(self):
-        print(Fore.MAGENTA + 'Ваши лицензионные ключи Photoshop:\n')
+    def saved_keys(self, file_use, pr):
+        print(Fore.MAGENTA + f'Ваши лицензионные ключи {pr}:\n')
         f = open(
-            'saved_keys_photoshop.txt',
+            file_use,
             'r')
-        file = 'saved_keys_photoshop.txt'
-        if empty_file(file):
-            print(Fore.YELLOW +
-                  'Activioin keys not found!\nДля создания новых лицензионных ключей используйте команду "1.Сгенерировать лицензионные ключи"')
-        else:
-            table = prettytable.PrettyTable()
-            table.field_names = ['№', 'Activion keys']
-            for i in f:
-                if not 'Ключи' in i:
-                    x = i.split('.')
-                    x = list([j.strip() for j in x])
-                    table.add_row(x)
-            print(table)
-        f.close()
-        self.commands()
-
-    def saved_keys_windows(self):
-        print(Fore.MAGENTA + 'Ваши лицензионные ключи Windows:\n')
-        f = open(
-            'saved activion keys windows.txt',
-            'r')
-        file = 'saved activion keys windows.txt'
-        if empty_file(file):
+        if empty_file(file_use):
             print(Fore.YELLOW +
                   'Activioin keys not found!\nДля создания новых лицензионных ключей используйте команду "1.Сгенерировать лицензионные ключи"')
         else:
