@@ -97,13 +97,8 @@ class PasswordGenerator:
         f = open(
             'generated saved passwords.txt',
             'r')
-
-        def is_empty_file(file_name):  # проверка пуст ли файл.txt
-            file_info = os.stat(file_name)
-            return file_info.st_size == 0
-
         file_name = 'generated saved passwords.txt'
-        if is_empty_file(file_name):
+        if empty_file(file_name):
             print(Fore.YELLOW +
                   'Password not found!\nДля создания новых паролей используйте команду "1.Сгенерировать рандомный пароль"')
         else:
